@@ -1,0 +1,29 @@
+﻿<Window x:Class="PhotoManager.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PhotoManager.Wpf"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="450"
+        Width="800">
+    
+    <DataGrid ItemsSource="{Binding Photos}"
+           AutoGenerateColumns="False"
+           HeadersVisibility="Column"
+           CanUserAddRows="False"
+           Margin="10"
+           IsReadOnly="True">
+
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+            <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*"/>
+            <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='yyyy-MM-dd'}" Width="150"/>
+            <DataGridTextColumn Header="Size (KB)" Binding="{Binding Size}" Width="100"/>
+            <DataGridCheckBoxColumn Header="Private" Binding="{Binding Private}" Width="80"/>
+        </DataGrid.Columns>
+
+    </DataGrid>
+</Window>
