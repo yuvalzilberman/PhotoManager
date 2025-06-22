@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace PhotoManager.Data.Models
 {
@@ -21,7 +17,5 @@ namespace PhotoManager.Data.Models
         public int Size { get; set; }
 
         public bool Private { get; set; }
-
-
     }
 }
