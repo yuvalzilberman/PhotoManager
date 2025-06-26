@@ -4,26 +4,50 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhotoManager.Wpf"
+        xmlns:converters="clr-namespace:PhotoManager.Wpf.Converters"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
         Width="800">
-    
-    <DataGrid ItemsSource="{Binding Photos}"
+
+    <Window.Resources>
+        <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
+    </Window.Resources>
+
+<Grid Margin="10">
+        <!-- Define two rows: buttons on top, DataGrid below -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 🟦 Panel with Browse and Upload -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+            <Button Content="Browse Photo" Width="120" Margin="0,0,10,0"
+                    Command="{Binding BrowseCommand}"/>
+            <Button Content="Upload Photo" Width="120"
+                    Command="{Binding UploadCommand}"
+                    IsEnabled="{Binding CanUpload}"/>
+            <TextBox Text="{Binding SelectedFilePath}" Width="200"  Margin="10,0,0,0"
+                       VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <DataGrid ItemsSource="{Binding Photos}"
+              Grid.Row="1"
            AutoGenerateColumns="False"
            HeadersVisibility="Column"
            CanUserAddRows="False"
            Margin="10"
            IsReadOnly="True">
 
-        <DataGrid.Columns>
-            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
-            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-            <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*"/>
-            <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='yyyy-MM-dd'}" Width="150"/>
-            <DataGridTextColumn Header="Size (KB)" Binding="{Binding Size}" Width="100"/>
-            <DataGridCheckBoxColumn Header="Private" Binding="{Binding Private}" Width="80"/>
-        </DataGrid.Columns>
-
-    </DataGrid>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='yyyy-MM-dd'}" Width="150"/>
+                <DataGridTextColumn Header="Size (KB)" Binding="{Binding Size}" Width="100"/>
+                <DataGridCheckBoxColumn Header="Private" Binding="{Binding Private}" Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </Window>
