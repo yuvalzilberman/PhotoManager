@@ -1,7 +1,11 @@
-﻿using System.IO;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text;
 using PhotoManager.Data.Models;
+using PhotoManager.Common.DTOs;
+using PhotoManager.Common;
+
 
 namespace PhotoManager.Wpf.Services
 {
@@ -15,27 +19,32 @@ namespace PhotoManager.Wpf.Services
             _http.BaseAddress = new Uri("https://localhost:7104");
         }
 
-        public async Task<List<Photo>> GetPhotosAsync()
+        internal async Task<List<Photo>> GetPhotosAsync()
         {
             return await _http.GetFromJsonAsync<List<Photo>>("api/photo") ?? new List<Photo>();
-        }
+        }        
 
-        public async Task<bool> UploadPhotoAsync(string filePath)
+        internal async Task<(bool,string)> UploadPhotoAsync(string[] filePaths)
         {
-            if (!File.Exists(filePath))
-                return false;
+            if (filePaths == null || filePaths.Length == 0)
+                return (false, "No files hae been upload");
 
-            using var content = new MultipartFormDataContent();
-            using var stream = File.OpenRead(filePath);
-
-            var fileContent = new StreamContent(stream);
-            fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
-
-            content.Add(fileContent, "file", Path.GetFileName(filePath));
-
-            var response = await _http.PostAsync("https://localhost:5001/api/photo/upload", content);
-
-            return response.IsSuccessStatusCode;
+            try
+            {
+                var json = JsonSerializer.Serialize(filePaths);                
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _http.PostAsync("api/photo/upload", content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonSerializer.Deserialize<UploadResponse>(responseContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                return result == null ? (false, "Unknown Error") :(true, "");
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
         }
     }
 }

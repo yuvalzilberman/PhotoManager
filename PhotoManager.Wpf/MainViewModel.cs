@@ -1,13 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using PhotoManager.Data.Models;
 using PhotoManager.Wpf.Services;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.IO;
 
 
 namespace PhotoManager.Wpf
@@ -17,31 +14,17 @@ namespace PhotoManager.Wpf
         public ICommand BrowseCommand { get; }
         public ICommand UploadCommand { get; }
 
-        public string _selectedFilePath;
-        public string SelectedFilePath
+        private string[] _selectedFilePaths;
+        public string[] SelectedFilePaths
         {
-            get => _selectedFilePath;
+            get => _selectedFilePaths;
             set
             {
-                if (_selectedFilePath != value)
-                {
-                    _selectedFilePath = value;
-                    OnPropertyChanged();
-                    OnPropertyChanged(nameof(CanUpload));
-                }
+                _selectedFilePaths = value;
+                OnPropertyChanged(nameof(SelectedFilePaths));
             }
         }
-
-        public void NotifyUploadStateChanged()
-        {
-            OnPropertyChanged(nameof(CanUpload));
-        }
-
-        public bool CanUpload => !string.IsNullOrWhiteSpace(SelectedFilePath);
-
-
-        public bool IsPhotoSelected => !string.IsNullOrEmpty(SelectedFilePath);
-
+        
         private readonly PhotoService _photoService;
 
         private ObservableCollection<Photo> _photos;
@@ -63,7 +46,7 @@ namespace PhotoManager.Wpf
             _photoService = photoService;
 
             BrowseCommand = new RelayCommand(OnBrowse);
-            UploadCommand = new RelayCommand(OnUpload, () => IsPhotoSelected);
+            UploadCommand = new RelayCommand(OnUpload);
 
             LoadPhotos();
         }
@@ -74,28 +57,30 @@ namespace PhotoManager.Wpf
             Photos = new ObservableCollection<Photo>(list);
         }
 
+        public string SelectedFilePathDisplay =>
+            SelectedFilePaths == null ? "" : string.Join("; ", SelectedFilePaths);
 
         private void OnBrowse()
         {
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
+                Multiselect = true,
                 Filter = "Image files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png"
             };
 
             if (dialog.ShowDialog() == true)
             {
-                SelectedFilePath = dialog.FileName;
-                OnPropertyChanged(nameof(SelectedFilePath));
-                OnPropertyChanged(nameof(IsPhotoSelected));
-                CommandManager.InvalidateRequerySuggested(); // refresh button enable state
+                SelectedFilePaths = dialog.FileNames;               
+                OnPropertyChanged(nameof(SelectedFilePathDisplay));
+                CommandManager.InvalidateRequerySuggested(); 
             }
         }
 
         private async void OnUpload()
         {
-            if (!File.Exists(SelectedFilePath)) return;
-
-            _photoService.UploadPhotoAsync(SelectedFilePath);
+            var (success, message) = await _photoService.UploadPhotoAsync(SelectedFilePaths);
+            if (!string.IsNullOrEmpty(message))
+                MessageBox.Show(message);            
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

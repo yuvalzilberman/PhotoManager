@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PhotoManager.Common\PhotoManager.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="PhotoManager.Data">
       <HintPath>..\PhotoManager.Data\bin\Debug\net6.0\PhotoManager.Data.dll</HintPath>
     </Reference>

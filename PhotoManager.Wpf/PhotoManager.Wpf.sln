@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoManager.Wpf", "PhotoManager.Wpf.csproj", "{681585CC-F526-4FF7-8FC9-EE751876B2B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoManager.Common", "..\PhotoManager.Common\PhotoManager.Common.csproj", "{58E94D38-E4E1-50D1-4BB0-FF986BDDE38A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{681585CC-F526-4FF7-8FC9-EE751876B2B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{681585CC-F526-4FF7-8FC9-EE751876B2B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{681585CC-F526-4FF7-8FC9-EE751876B2B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58E94D38-E4E1-50D1-4BB0-FF986BDDE38A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58E94D38-E4E1-50D1-4BB0-FF986BDDE38A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58E94D38-E4E1-50D1-4BB0-FF986BDDE38A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58E94D38-E4E1-50D1-4BB0-FF986BDDE38A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

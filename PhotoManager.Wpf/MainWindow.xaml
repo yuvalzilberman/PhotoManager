@@ -27,7 +27,7 @@
                     Command="{Binding BrowseCommand}"/>
             <Button Content="Upload Photo" Width="120"
                     Command="{Binding UploadCommand}"
-                    IsEnabled="{Binding CanUpload}"/>
+                    />
             <TextBox Text="{Binding SelectedFilePath}" Width="200"  Margin="10,0,0,0"
                        VerticalAlignment="Center"/>
         </StackPanel>
