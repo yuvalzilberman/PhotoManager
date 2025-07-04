@@ -33,7 +33,7 @@ namespace PhotoManager.API.Controllers
             {
                 return BadRequest(new UploadResponse
                 {
-                    Status = UploadStatus.NoFilesProvided                    
+                    Status = UploadStatus.NoFilesProvided
                 });
             }
 
@@ -43,23 +43,18 @@ namespace PhotoManager.API.Controllers
                 if (!System.IO.File.Exists(path))
                     continue;
 
-                var fileInfo = new FileInfo(path);
-                var photo = new Photo
-                {
-                    Name = fileInfo.Name,
-                    Path = path,
-                    Date = fileInfo.CreationTimeUtc,
-                    Size = (int)fileInfo.Length,
-                    Private = false
-                };
-                photos.Add(photo);
+                var photo = Utils.Utils.GetImageInfo(path);
+                if (photo != null)
+                    photos.Add(photo);
             }
 
             if (photos.Count == 0)
+            {
                 return BadRequest(new UploadResponse
                 {
                     Status = UploadStatus.FilesNotFound
                 });
+            }
 
             _context.Photos.AddRange(photos);
             await _context.SaveChangesAsync();
