@@ -16,10 +16,10 @@ namespace PhotoManager.API.Utils
             var fileInfo = new FileInfo(imagePath);
             return new Photo
             {
-                Path = imagePath,
-                Name = fileInfo.Name,
-                Date = fileInfo.CreationTimeUtc,
-                Size = (int)fileInfo.Length,
+                FileName = fileInfo.Name,
+                StorageUrl = imagePath,
+                OriginalDateTaken = fileInfo.CreationTimeUtc,
+                SizeInBytes = (int)fileInfo.Length,
                 Width = width,
                 Height = height
             };
