@@ -6,48 +6,100 @@
         xmlns:local="clr-namespace:PhotoManager.Wpf"
         xmlns:converters="clr-namespace:PhotoManager.Wpf.Converters"
         mc:Ignorable="d"
-        Title="MainWindow"
-        Height="450"
-        Width="800">
+        Title="Photo Manager"
+        Height="500"
+        Width="900"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
     </Window.Resources>
 
-<Grid Margin="10">
-        <!-- Define two rows: buttons on top, DataGrid below -->
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- 🟦 Panel with Browse and Upload -->
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
-            <Button Content="Browse Photo" Width="120" Margin="0,0,10,0"
-                    Command="{Binding BrowseCommand}"/>
-            <Button Content="Upload Photo" Width="120"
-                    Command="{Binding UploadCommand}"
-                    />
-            <TextBox Text="{Binding SelectedFilePath}" Width="200"  Margin="10,0,0,0"
-                       VerticalAlignment="Center"/>
-        </StackPanel>
+        <!-- Header with Login Icon and Username -->
+        <Border Grid.Row="0" 
+                Background="{StaticResource WindowGradientBrush}" 
+                BorderBrush="#505050" 
+                BorderThickness="0,0,0,1" 
+                Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-        <DataGrid ItemsSource="{Binding Photos}"
-              Grid.Row="1"
-           AutoGenerateColumns="False"
-           HeadersVisibility="Column"
-           CanUserAddRows="False"
-           Margin="10"
-           IsReadOnly="True">
+                <!-- App Title -->
+                <TextBlock Grid.Column="0" 
+                           Text="Photo Manager" 
+                           FontSize="18" 
+                           FontWeight="Bold" 
+                           Foreground="White"
+                           VerticalAlignment="Center"/>
 
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                <DataGridTextColumn Header="Path" Binding="{Binding Path}" Width="*"/>
-                <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='yyyy-MM-dd'}" Width="150"/>
-                <DataGridTextColumn Header="Size (KB)" Binding="{Binding Size}" Width="100"/>
-                <DataGridCheckBoxColumn Header="Private" Binding="{Binding Private}" Width="80"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <!-- Login Section -->
+                <StackPanel Grid.Column="1" 
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Center">
+                    <TextBlock Text="{Binding LoggedInUsername}" 
+                               VerticalAlignment="Center" 
+                               Margin="0,0,10,0" 
+                               FontWeight="SemiBold"
+                               Foreground="White"/>
+                    <Button Command="{Binding LoginCommand}" 
+                            Width="32" 
+                            Height="32" 
+                            Padding="0"
+                            Background="Transparent" 
+                            BorderThickness="0">
+                        <Button.Content>
+                            <Path Data="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" 
+                                  Fill="White" 
+                                  Stretch="Uniform"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="10" Background="{StaticResource WindowGradientBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Panel with Browse and Upload -->
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+                <Button Content="Browse Photo" Width="120" Margin="0,0,10,0"
+                        Command="{Binding BrowseCommand}"/>
+                <Button Content="Upload Photo" Width="120"
+                        Command="{Binding UploadCommand}"/>
+                <TextBox Text="{Binding SelectedFilePathDisplay}" Width="300" Margin="10,0,0,0"
+                         VerticalAlignment="Center" IsReadOnly="True"/>
+            </StackPanel>
+
+            <DataGrid ItemsSource="{Binding Photos}"
+                      Grid.Row="1"
+                      AutoGenerateColumns="False"
+                      HeadersVisibility="Column"
+                      CanUserAddRows="False"
+                      Margin="0,10,0,0"
+                      IsReadOnly="True">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                    <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*"/>
+                    <DataGridTextColumn Header="Size (KB)" Binding="{Binding SizeInBytes}" Width="100"/>
+                    <DataGridTextColumn Header="Upload Date" Binding="{Binding UploadDate, StringFormat='yyyy-MM-dd'}" Width="120"/>
+                    <DataGridTextColumn Header="Width" Binding="{Binding Width}" Width="80"/>
+                    <DataGridTextColumn Header="Height" Binding="{Binding Height}" Width="80"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Window>
