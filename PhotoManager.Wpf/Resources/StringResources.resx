@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  
+  <!-- Login Dialog Strings -->
+  <data name="Login_Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="Login_Subtitle" xml:space="preserve">
+    <value>Sign in to your existing account</value>
+  </data>
+  <data name="Login_UsernamePlaceholder" xml:space="preserve">
+    <value>User name</value>
+  </data>
+  <data name="Login_PasswordPlaceholder" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Login_SignInButton" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="Login_CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Login_CreateAccountLink" xml:space="preserve">
+    <value>Don't have an account? Create one</value>
+  </data>
+  
+  <!-- Registration Dialog Strings -->
+  <data name="Registration_Title" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="Registration_Subtitle" xml:space="preserve">
+    <value>Enter your details to create a new account</value>
+  </data>
+  <data name="Registration_UsernamePlaceholder" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Registration_EmailPlaceholder" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Registration_PasswordPlaceholder" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Registration_ConfirmPasswordPlaceholder" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="Registration_CreateAccountButton" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="Registration_BackToLoginLink" xml:space="preserve">
+    <value>Already have an account? Sign in</value>
+  </data>
+  
+  <!-- Validation Messages -->
+  <data name="Validation_UsernameRequired" xml:space="preserve">
+    <value>Please enter a username.</value>
+  </data>
+  <data name="Validation_UsernameMinLength" xml:space="preserve">
+    <value>Username must be at least 3 characters long.</value>
+  </data>
+  <data name="Validation_EmailRequired" xml:space="preserve">
+    <value>Please enter an email address.</value>
+  </data>
+  <data name="Validation_EmailInvalid" xml:space="preserve">
+    <value>Please enter a valid email address.</value>
+  </data>
+  <data name="Validation_PasswordRequired" xml:space="preserve">
+    <value>Please enter a password.</value>
+  </data>
+  <data name="Validation_PasswordMinLength" xml:space="preserve">
+    <value>Password must be at least 6 characters long.</value>
+  </data>
+  <data name="Validation_ConfirmPasswordRequired" xml:space="preserve">
+    <value>Please confirm your password.</value>
+  </data>
+  <data name="Validation_PasswordsDoNotMatch" xml:space="preserve">
+    <value>Passwords do not match.</value>
+  </data>
+  
+  <!-- Main Window Strings -->
+  <data name="MainWindow_Title" xml:space="preserve">
+    <value>Photo Manager</value>
+  </data>
+  <data name="MainWindow_BrowseButton" xml:space="preserve">
+    <value>Browse Photo</value>
+  </data>
+  <data name="MainWindow_UploadButton" xml:space="preserve">
+    <value>Upload Photo</value>
+  </data>
+  
+  <!-- DataGrid Headers -->
+  <data name="DataGrid_HeaderId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="DataGrid_HeaderFileName" xml:space="preserve">
+    <value>FileName</value>
+  </data>
+  <data name="DataGrid_HeaderSize" xml:space="preserve">
+    <value>Size (KB)</value>
+  </data>
+  <data name="DataGrid_HeaderUploadDate" xml:space="preserve">
+    <value>Upload Date</value>
+  </data>
+  <data name="DataGrid_HeaderWidth" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="DataGrid_HeaderHeight" xml:space="preserve">
+    <value>Height</value>
+  </data>
+</root> 

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-
 using PhotoManager.Wpf.Services;
+using PhotoManager.Wpf.Configuration;
 
 
 namespace PhotoManager.Wpf
@@ -12,6 +12,9 @@ namespace PhotoManager.Wpf
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            // Apply theme from configuration
+            ThemeManager.ApplyTheme();
+
             var services = new ServiceCollection();
 
             // Register services

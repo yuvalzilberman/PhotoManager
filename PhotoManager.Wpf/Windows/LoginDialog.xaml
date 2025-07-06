@@ -12,43 +12,6 @@
     
     <Window.Resources>
         <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
-
-        <ControlTemplate x:Key="ModernButtonTemplate" TargetType="Button">
-            <Border Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                CornerRadius="8">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="8" 
-                                  Direction="270" 
-                                  ShadowDepth="2" 
-                                  Color="Black" 
-                                  Opacity="0.3"/>
-                </Border.Effect>
-                <ContentPresenter HorizontalAlignment="Center" 
-                              VerticalAlignment="Center"/>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#FFCC80"/>
-                    <Setter Property="BorderBrush" Value="#FFCC80"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#FFA726"/>
-                    <Setter Property="BorderBrush" Value="#FFA726"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-        
-        <!-- Shadow Effect -->
-        <DropShadowEffect x:Key="WindowShadow" 
-                          BlurRadius="20" 
-                          Direction="270" 
-                          ShadowDepth="5" 
-                          Color="Black" 
-                          Opacity="0.3"/>
-
-        
     </Window.Resources>
     
     <Border Background="{StaticResource WindowGradientBrush}" 
@@ -76,7 +39,7 @@
                          Height="60" 
                          Style="{StaticResource IconEllipseStyle}"
                          Margin="0,0,0,8"/>
-                <Path Data="M4,4H7L9,2H15L17,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z" 
+                <Path Data="{StaticResource CameraIcon}" 
                       Fill="White" 
                       Stretch="Uniform" 
                       Width="30" 

@@ -12,14 +12,6 @@
     
     <Window.Resources>
         <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
-        
-        <!-- Shadow Effect -->
-        <DropShadowEffect x:Key="WindowShadow" 
-                          BlurRadius="20" 
-                          Direction="270" 
-                          ShadowDepth="5" 
-                          Color="Black" 
-                          Opacity="0.3"/>
     </Window.Resources>
     
     <Border Background="{StaticResource WindowGradientBrush}" 
@@ -50,7 +42,7 @@
                          Height="60" 
                          Style="{StaticResource IconEllipseStyle}"
                          Margin="0,0,0,8"/>
-                <Path Data="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" 
+                <Path Data="{StaticResource UserIcon}" 
                       Fill="White" 
                       Stretch="Uniform" 
                       Width="30" 

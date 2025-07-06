@@ -27,6 +27,13 @@
                       Color="Black" 
                       Opacity="0.3"/>
 
+    <DropShadowEffect x:Key="InputFieldShadow" 
+                      BlurRadius="4" 
+                      Direction="270" 
+                      ShadowDepth="1" 
+                      Color="Black" 
+                      Opacity="0.2"/>
+
     <!-- Colors -->
     <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#2D2D30"/>
     <SolidColorBrush x:Key="InputFieldBackgroundBrush" Color="#3E3E42"/>
@@ -77,6 +84,11 @@
         <Setter Property="BorderBrush" Value="{StaticResource InputFieldBorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <StaticResource ResourceKey="InputFieldShadow"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-- TextBox Style -->

@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
+using PhotoManager.Wpf.Resources;
 
 namespace PhotoManager.Wpf
 {
@@ -110,49 +111,49 @@ namespace PhotoManager.Wpf
             // Validation
             if (string.IsNullOrWhiteSpace(Username))
             {
-                ErrorMessage = "Please enter a username.";
+                ErrorMessage = StringResourceManager.Validation_UsernameRequired;
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(Email))
             {
-                ErrorMessage = "Please enter an email address.";
+                ErrorMessage = StringResourceManager.Validation_EmailRequired;
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(Password))
             {
-                ErrorMessage = "Please enter a password.";
+                ErrorMessage = StringResourceManager.Validation_PasswordRequired;
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(ConfirmPassword))
             {
-                ErrorMessage = "Please confirm your password.";
+                ErrorMessage = StringResourceManager.Validation_ConfirmPasswordRequired;
                 return;
             }
 
             if (Username.Length < 3)
             {
-                ErrorMessage = "Username must be at least 3 characters long.";
+                ErrorMessage = StringResourceManager.Validation_UsernameMinLength;
                 return;
             }
 
             if (Password.Length < 6)
             {
-                ErrorMessage = "Password must be at least 6 characters long.";
+                ErrorMessage = StringResourceManager.Validation_PasswordMinLength;
                 return;
             }
 
             if (Password != ConfirmPassword)
             {
-                ErrorMessage = "Passwords do not match.";
+                ErrorMessage = StringResourceManager.Validation_PasswordsDoNotMatch;
                 return;
             }
 
             if (!IsValidEmail(Email))
             {
-                ErrorMessage = "Please enter a valid email address.";
+                ErrorMessage = StringResourceManager.Validation_EmailInvalid;
                 return;
             }
 

@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using PhotoManager.Wpf.Resources;
 
 namespace PhotoManager.Wpf
 {
@@ -77,25 +78,25 @@ namespace PhotoManager.Wpf
 
             if (string.IsNullOrWhiteSpace(Username))
             {
-                ErrorMessage = "Please enter a username.";
+                ErrorMessage = StringResourceManager.Validation_UsernameRequired;
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(Password))
             {
-                ErrorMessage = "Please enter a password.";
+                ErrorMessage = StringResourceManager.Validation_PasswordRequired;
                 return;
             }
 
             if (Username.Length < 3)
             {
-                ErrorMessage = "Username must be at least 3 characters long.";
+                ErrorMessage = StringResourceManager.Validation_UsernameMinLength;
                 return;
             }
 
             if (Password.Length < 3)
             {
-                ErrorMessage = "Password must be at least 3 characters long.";
+                ErrorMessage = StringResourceManager.Validation_PasswordMinLength;
                 return;
             }
 
