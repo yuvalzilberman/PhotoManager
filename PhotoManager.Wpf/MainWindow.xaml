@@ -23,7 +23,7 @@
 
         <!-- Header with Login Icon and Username -->
         <Border Grid.Row="0" 
-                Background="{StaticResource WindowGradientBrush}" 
+                Background="{DynamicResource WindowBackgroundBrush}" 
                 BorderBrush="#505050" 
                 BorderThickness="0,0,0,1" 
                 Padding="10">
@@ -67,7 +67,7 @@
         </Border>
 
         <!-- Main Content -->
-        <Grid Grid.Row="1" Margin="10" Background="{StaticResource WindowGradientBrush}">
+        <Grid Grid.Row="1" Margin="10" Background="{DynamicResource WindowBackgroundBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>

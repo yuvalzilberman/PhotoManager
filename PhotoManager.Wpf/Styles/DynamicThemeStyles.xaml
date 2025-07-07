@@ -72,7 +72,7 @@
     <SolidColorBrush x:Key="InputFieldBackgroundBrush" Color="#3E3E42"/>
     <SolidColorBrush x:Key="InputFieldBorderBrush" Color="#505050"/>
     <SolidColorBrush x:Key="PrimaryOrangeBrush" Color="#20B2AA"/>
-    <SolidColorBrush x:Key="HoverOrangeBrush" Color="#48C9B0"/>
+    <SolidColorBrush x:Key="HoverTealOrangeBrush" Color="#48C9B0"/>
     <SolidColorBrush x:Key="PressedOrangeBrush" Color="#1A8A8A"/>
     <SolidColorBrush x:Key="WhiteTextBrush" Color="White"/>
     <SolidColorBrush x:Key="LightGrayTextBrush" Color="#CCCCCC"/>
@@ -100,8 +100,8 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource HoverOrangeBrush}"/>
-                <Setter Property="BorderBrush" Value="{StaticResource HoverOrangeBrush}"/>
+                <Setter Property="Background" Value="{StaticResource HoverTealOrangeBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource HoverTealOrangeBrush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource PressedOrangeBrush}"/>
@@ -183,7 +183,7 @@
         <Setter Property="Margin" Value="0,8,0,0"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource HoverOrangeBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource HoverTealOrangeBrush}"/>
                 <Setter Property="TextDecorations" Value="Underline"/>
             </Trigger>
         </Style.Triggers>

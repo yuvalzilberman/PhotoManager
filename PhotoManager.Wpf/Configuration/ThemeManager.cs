@@ -11,9 +11,10 @@ namespace PhotoManager.Wpf.Configuration
             if (app == null) return;
 
             // Load configuration
-            var settings = ConfigurationManager.Settings;
+            var settings = ConfigurationManager.Instance.Settings;
 
             // Apply color brushes
+            ApplyColorBrush(app, "WindowBackgroundBrush", settings.Theme.Colors.WindowBackground);
             ApplyColorBrush(app, "DynamicGrayColorBrush", settings.Theme.Colors.WindowBackground);
             ApplyColorBrush(app, "DynamicInputFieldBackgroundBrush", settings.Theme.Colors.InputFieldBackground);
             ApplyColorBrush(app, "DynamicInputFieldBorderBrush", settings.Theme.Colors.InputFieldBorder);
@@ -36,14 +37,13 @@ namespace PhotoManager.Wpf.Configuration
             }
             catch
             {
-                // Fallback to default if color parsing fails
                 app.Resources[resourceKey] = new SolidColorBrush(Colors.Gray);
             }
         }
 
         public static void ReloadTheme()
         {
-            ConfigurationManager.ReloadSettings();
+            ConfigurationManager.Instance.ReloadSettings();
             ApplyTheme();
         }
     }
