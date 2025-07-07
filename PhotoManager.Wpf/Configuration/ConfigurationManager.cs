@@ -7,7 +7,7 @@ namespace PhotoManager.Wpf.Configuration
 {
     public static class ConfigurationManager
     {
-        private static AppSettings _settings;
+        private static AppSettings? _settings;
         private static readonly string ConfigFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", "AppSettings.json");
 
         public static AppSettings Settings
@@ -18,7 +18,9 @@ namespace PhotoManager.Wpf.Configuration
                 {
                     LoadSettings();
                 }
-                return _settings;
+
+                // Ensure _settings is not null by returning a default instance if LoadSettings fails
+                return _settings ?? new AppSettings();
             }
         }
 

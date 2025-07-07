@@ -5,9 +5,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/LoginStyles.xaml"/>
-                <ResourceDictionary Source="Resources/IconResources.xaml"/>
                 <ResourceDictionary Source="Styles/DynamicThemeStyles.xaml"/>
+                <ResourceDictionary Source="Resources/IconResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

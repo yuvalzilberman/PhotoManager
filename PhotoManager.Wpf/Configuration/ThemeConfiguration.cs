@@ -1,12 +1,9 @@
-using System.Collections.Generic;
-
 namespace PhotoManager.Wpf.Configuration
 {
     public class ThemeConfiguration
     {
         public string Name { get; set; } = "DarkTeal";
         public ColorConfiguration Colors { get; set; } = new();
-        public ShadowConfiguration Shadows { get; set; } = new();
     }
 
     public class ColorConfiguration
@@ -21,54 +18,6 @@ namespace PhotoManager.Wpf.Configuration
         public string LightGrayText { get; set; } = "#CCCCCC";
         public string PlaceholderText { get; set; } = "#999999";
         public string ErrorText { get; set; } = "#F14C4C";
-    }
-
-    public class ShadowConfiguration
-    {
-        public ShadowSettings WindowShadow { get; set; } = new() 
-        { 
-            BlurRadius = 20, 
-            Direction = 270, 
-            ShadowDepth = 5, 
-            Color = "#000000", 
-            Opacity = 0.3 
-        };
-        
-        public ShadowSettings ButtonShadow { get; set; } = new() 
-        { 
-            BlurRadius = 8, 
-            Direction = 270, 
-            ShadowDepth = 2, 
-            Color = "#000000", 
-            Opacity = 0.3 
-        };
-        
-        public ShadowSettings IconShadow { get; set; } = new() 
-        { 
-            BlurRadius = 10, 
-            Direction = 270, 
-            ShadowDepth = 3, 
-            Color = "#000000", 
-            Opacity = 0.3 
-        };
-        
-        public ShadowSettings InputFieldShadow { get; set; } = new() 
-        { 
-            BlurRadius = 4, 
-            Direction = 270, 
-            ShadowDepth = 1, 
-            Color = "#000000", 
-            Opacity = 0.2 
-        };
-    }
-
-    public class ShadowSettings
-    {
-        public double BlurRadius { get; set; } = 8;
-        public double Direction { get; set; } = 270;
-        public double ShadowDepth { get; set; } = 2;
-        public string Color { get; set; } = "#000000";
-        public double Opacity { get; set; } = 0.3;
     }
 
     public class ApplicationConfiguration

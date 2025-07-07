@@ -1,19 +1,13 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:configuration="clr-namespace:PhotoManager.Wpf.Configuration">
+                    xmlns:configuration="clr-namespace:PhotoManager.Wpf.Configuration"
+                    xmlns:converters="clr-namespace:PhotoManager.Wpf.Converters">
 
-    <!-- Dynamic Color Brushes - These will be populated at runtime -->
-    <SolidColorBrush x:Key="DynamicWindowBackgroundBrush" Color="Gray"/>
-    <SolidColorBrush x:Key="DynamicInputFieldBackgroundBrush" Color="Gray"/>
-    <SolidColorBrush x:Key="DynamicInputFieldBorderBrush" Color="Gray"/>
-    <SolidColorBrush x:Key="DynamicPrimaryAccentBrush" Color="Gray"/>
-    <SolidColorBrush x:Key="DynamicHoverAccentBrush" Color="Gray"/>
-    <SolidColorBrush x:Key="DynamicPressedAccentBrush" Color="Gray"/>
-    <SolidColorBrush x:Key="DynamicWhiteTextBrush" Color="Gray"/>
-    <SolidColorBrush x:Key="DynamicLightGrayTextBrush" Color="Gray"/>
-    <SolidColorBrush x:Key="DynamicPlaceholderTextBrush" Color="Gray"/>
-    <SolidColorBrush x:Key="DynamicErrorTextBrush" Color="Gray"/>
+    <!-- Converters -->
+    <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
 
+      
+    
     <!-- Dynamic Shadow Effects - These will be populated at runtime -->
     <DropShadowEffect x:Key="DynamicWindowShadow" 
                       BlurRadius="20" 
@@ -42,5 +36,187 @@
                       ShadowDepth="1" 
                       Color="Black" 
                       Opacity="0.2"/>
+
+    <!-- Static Shadow Effects -->
+    <DropShadowEffect x:Key="WindowShadow" 
+                      BlurRadius="20" 
+                      Direction="270" 
+                      ShadowDepth="5" 
+                      Color="Black" 
+                      Opacity="0.3"/>
+
+    <DropShadowEffect x:Key="ButtonShadow" 
+                      BlurRadius="8" 
+                      Direction="270" 
+                      ShadowDepth="2" 
+                      Color="Black" 
+                      Opacity="0.3"/>
+
+    <DropShadowEffect x:Key="IconShadow" 
+                      BlurRadius="10" 
+                      Direction="270" 
+                      ShadowDepth="3" 
+                      Color="Black" 
+                      Opacity="0.3"/>
+
+    <DropShadowEffect x:Key="InputFieldShadow" 
+                      BlurRadius="4" 
+                      Direction="270" 
+                      ShadowDepth="1" 
+                      Color="Black" 
+                      Opacity="0.2"/>
+
+    <!-- Static Colors -->
+    <SolidColorBrush x:Key="DynamicGrayColorBrush" Color="Gray"/>
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#2D2D30"/>
+    <SolidColorBrush x:Key="InputFieldBackgroundBrush" Color="#3E3E42"/>
+    <SolidColorBrush x:Key="InputFieldBorderBrush" Color="#505050"/>
+    <SolidColorBrush x:Key="PrimaryOrangeBrush" Color="#20B2AA"/>
+    <SolidColorBrush x:Key="HoverOrangeBrush" Color="#48C9B0"/>
+    <SolidColorBrush x:Key="PressedOrangeBrush" Color="#1A8A8A"/>
+    <SolidColorBrush x:Key="WhiteTextBrush" Color="White"/>
+    <SolidColorBrush x:Key="LightGrayTextBrush" Color="#CCCCCC"/>
+    <SolidColorBrush x:Key="PlaceholderTextBrush" Color="#999999"/>
+    <SolidColorBrush x:Key="ErrorTextBrush" Color="#F14C4C"/>
+
+    <!-- Gradient Background -->
+    <LinearGradientBrush x:Key="WindowGradientBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#3A3A3D" Offset="0"/>
+        <GradientStop Color="#2D2D30" Offset="0.5"/>
+        <GradientStop Color="#1E1E21" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Button Template -->
+    <ControlTemplate x:Key="ModernButtonTemplate" TargetType="Button">
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="8">
+            <Border.Effect>
+                <StaticResource ResourceKey="ButtonShadow"/>
+            </Border.Effect>
+            <ContentPresenter HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource HoverOrangeBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource HoverOrangeBrush}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource PressedOrangeBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource PressedOrangeBrush}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- Input Field Style -->
+    <Style x:Key="LoginInputFieldStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource InputFieldBackgroundBrush}"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="BorderBrush" Value="{StaticResource InputFieldBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <StaticResource ResourceKey="InputFieldShadow"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- TextBox Style -->
+    <Style x:Key="LoginTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource WhiteTextBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+
+    <!-- PasswordBox Style -->
+    <Style x:Key="LoginPasswordBoxStyle" TargetType="PasswordBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource WhiteTextBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+
+    <!-- Placeholder Text Style -->
+    <Style x:Key="PlaceholderTextStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource PlaceholderTextBrush}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Title Text Style -->
+    <Style x:Key="TitleTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource WhiteTextBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Subtitle Text Style -->
+    <Style x:Key="SubtitleTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{StaticResource LightGrayTextBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Error Text Style -->
+    <Style x:Key="ErrorTextStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource ErrorTextBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <!-- Create Account Link Style -->
+    <Style x:Key="CreateAccountLinkStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource PrimaryOrangeBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="0,8,0,0"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource HoverOrangeBrush}"/>
+                <Setter Property="TextDecorations" Value="Underline"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Primary Button Style -->
+    <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource PrimaryOrangeBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PrimaryOrangeBrush}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Template" Value="{StaticResource ModernButtonTemplate}"/>
+    </Style>
+
+    <!-- Secondary Button Style -->
+    <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource LightGrayTextBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource InputFieldBorderBrush}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Template" Value="{StaticResource ModernButtonTemplate}"/>
+    </Style>
+
+    <!-- Icon Style -->
+    <Style x:Key="IconEllipseStyle" TargetType="Ellipse">
+        <Setter Property="Fill" Value="{StaticResource PrimaryOrangeBrush}"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <StaticResource ResourceKey="IconShadow"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary> 
