@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PhotoManager.Wpf
 {
@@ -7,8 +8,9 @@ namespace PhotoManager.Wpf
     {
         public RegistrationDialog()
         {
+            var vm = App.ServiceProvider.GetRequiredService<RegistrationViewModel>();
+            DataContext = vm;
             InitializeComponent();
-            DataContext = new RegistrationViewModel();
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -66,5 +66,19 @@ namespace PhotoManager.API.Controllers
                 SavedCount = photos.Count
             });
         }
+
+        [HttpPost("AddUser")]
+        public async Task<IActionResult> AddUser([FromBody] AddUser user)
+        {
+            if (user == null)
+            {
+                return BadRequest("User data is required.");
+            }
+          //  _context.AppUsers.Add(user);
+          //  await _context.SaveChangesAsync();
+            return Ok(new { /*userId = user.Id, message = "User added successfully."*/ });
+        }
     }
-}
+
+
+    }

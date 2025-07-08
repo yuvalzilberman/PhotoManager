@@ -3,12 +3,19 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
 using PhotoManager.Wpf.Resources;
+using PhotoManager.Wpf.Services;
+using System;
+using System.Threading.Tasks;
+using System.Text.Json;
+using System.Net.Http;
+using System.Text;
 
 namespace PhotoManager.Wpf
 {
     public class RegistrationViewModel : INotifyPropertyChanged
     {
-        private readonly RegistrationDialog _dialog;
+        public event EventHandler RequestClose;
+        private readonly PhotoService _photoService;
         private string _username = string.Empty;
         private string _email = string.Empty;
         private string _password = string.Empty;
@@ -83,76 +90,46 @@ namespace PhotoManager.Wpf
         public ICommand CreateAccountCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public RegistrationViewModel()
-        {        
-            CreateAccountCommand = new RelayCommand(OnCreateAccount);
+        public RegistrationViewModel(PhotoService photoService)
+        {
+            _photoService = photoService;
+            CreateAccountCommand = new RelayCommand(async () => await OnCreateAccount());
             CancelCommand = new RelayCommand(OnCancel);
         }
 
-        private void OnCreateAccount()
+        private async Task OnCreateAccount()
         {
-            if (string.IsNullOrWhiteSpace(Username))
+            // Validation can be uncommented if needed
+            var addUser = new PhotoManager.Common.DTOs.AddUser
             {
-                ErrorMessage = StringResourceManager.Validation_UsernameRequired;
-                return;
-            }
+                UserName = Username,
+                Email = Email,
+                Password = Password
+            };
 
-            if (string.IsNullOrWhiteSpace(Email))
+            try
             {
-                ErrorMessage = StringResourceManager.Validation_EmailRequired;
-                return;
+                var response = await _photoService.AddUserAsync(addUser);
+                if (response.success)
+                {
+                    IsRegistrationSuccessful = true;
+                    RequestClose?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    ErrorMessage = response.message;
+                }
             }
-
-            if (string.IsNullOrWhiteSpace(Password))
+            catch (Exception ex)
             {
-                ErrorMessage = StringResourceManager.Validation_PasswordRequired;
-                return;
+                ErrorMessage = $"Exception: {ex.Message}";
             }
-
-            if (string.IsNullOrWhiteSpace(ConfirmPassword))
-            {
-                ErrorMessage = StringResourceManager.Validation_ConfirmPasswordRequired;
-                return;
-            }
-
-            if (Username.Length < 3)
-            {
-                ErrorMessage = StringResourceManager.Validation_UsernameMinLength;
-                return;
-            }
-
-            if (Password.Length < 6)
-            {
-                ErrorMessage = StringResourceManager.Validation_PasswordMinLength;
-                return;
-            }
-
-            if (Password != ConfirmPassword)
-            {
-                ErrorMessage = StringResourceManager.Validation_PasswordsDoNotMatch;
-                return;
-            }
-
-            if (!IsValidEmail(Email))
-            {
-                ErrorMessage = StringResourceManager.Validation_EmailInvalid;
-                return;
-            }
-
-            // TODO: Here you would typically call your backend API to create the user
-            // For now, we'll simulate a successful registration
-            
-            // Registration successful
-            IsRegistrationSuccessful = true;
-            _dialog.DialogResult = true;
-            _dialog.Close();
         }
 
         private void OnCancel()
         {
             IsRegistrationSuccessful = false;
-            _dialog.DialogResult = false;
-            _dialog.Close();
+            RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
         private void ClearError()

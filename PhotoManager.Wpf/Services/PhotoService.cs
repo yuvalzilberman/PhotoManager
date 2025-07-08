@@ -46,16 +46,16 @@ namespace PhotoManager.Wpf.Services
             }
         }
 
-        internal async Task<(bool, string)> AddUserAsync(AppUser user)
+        internal async Task<(bool, string)> AddUserAsync(PhotoManager.Common.DTOs.AddUser addUser)
         {
-            if (user == null)
+            if (addUser == null)
                 return (false, "User cannot be null");
 
             try
             {
-                var json = JsonSerializer.Serialize(user);
+                var json = JsonSerializer.Serialize(addUser);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _http.PostAsync("api/user", content);
+                var response = await _http.PostAsync("api/AddUser", content);
 
                 if (response.IsSuccessStatusCode)
                 {

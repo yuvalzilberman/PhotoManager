@@ -22,6 +22,7 @@ namespace PhotoManager.Wpf
 
             // Register ViewModels
             services.AddTransient<MainViewModel>();
+            services.AddTransient<RegistrationViewModel>();
 
             ServiceProvider = services.BuildServiceProvider();
 
