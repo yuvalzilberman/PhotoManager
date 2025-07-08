@@ -45,5 +45,32 @@ namespace PhotoManager.Wpf.Services
                 return (false, ex.Message);
             }
         }
+
+        internal async Task<(bool, string)> AddUserAsync(AppUser user)
+        {
+            if (user == null)
+                return (false, "User cannot be null");
+
+            try
+            {
+                var json = JsonSerializer.Serialize(user);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _http.PostAsync("api/user", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return (true, "User added successfully");
+                }
+                else
+                {
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    return (false, $"Failed to add user: {errorMessage}");
+                }
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Exception occurred: {ex.Message}");
+            }
+        }
     }
 }

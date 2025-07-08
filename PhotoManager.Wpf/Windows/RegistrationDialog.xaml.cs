@@ -8,7 +8,7 @@ namespace PhotoManager.Wpf
         public RegistrationDialog()
         {
             InitializeComponent();
-            DataContext = new RegistrationViewModel(this);
+            DataContext = new RegistrationViewModel();
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

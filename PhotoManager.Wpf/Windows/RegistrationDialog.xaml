@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="clr-namespace:PhotoManager.Wpf.Converters"
         xmlns:resources="clr-namespace:PhotoManager.Wpf.Resources"
+        xmlns:local="clr-namespace:PhotoManager.Wpf"
         Title="Create Account" 
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
@@ -129,8 +130,10 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <PasswordBox x:Name="PasswordBox" 
-                                 Style="{StaticResource LoginPasswordBoxStyle}"/>
+                    <PasswordBox x:Name="PasswordBox"
+             local:PasswordBoxAssistant.BindPassword="True"
+                                 Style="{StaticResource LoginPasswordBoxStyle}"
+             local:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
             </Border>
             

@@ -1,7 +1,5 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
 using PhotoManager.Wpf.Resources;
@@ -85,30 +83,14 @@ namespace PhotoManager.Wpf
         public ICommand CreateAccountCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public RegistrationViewModel(RegistrationDialog dialog)
-        {
-            _dialog = dialog;
+        public RegistrationViewModel()
+        {        
             CreateAccountCommand = new RelayCommand(OnCreateAccount);
             CancelCommand = new RelayCommand(OnCancel);
         }
 
         private void OnCreateAccount()
         {
-            // Get passwords from PasswordBoxes since they don't support binding
-            var passwordBox = _dialog.FindName("PasswordBox") as PasswordBox;
-            var confirmPasswordBox = _dialog.FindName("ConfirmPasswordBox") as PasswordBox;
-            
-            if (passwordBox != null)
-            {
-                Password = passwordBox.Password;
-            }
-            
-            if (confirmPasswordBox != null)
-            {
-                ConfirmPassword = confirmPasswordBox.Password;
-            }
-
-            // Validation
             if (string.IsNullOrWhiteSpace(Username))
             {
                 ErrorMessage = StringResourceManager.Validation_UsernameRequired;
