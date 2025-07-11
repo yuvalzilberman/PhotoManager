@@ -3,10 +3,7 @@
                     xmlns:configuration="clr-namespace:PhotoManager.Wpf.Configuration"
                     xmlns:converters="clr-namespace:PhotoManager.Wpf.Converters">
 
-    <!-- Converters -->
-    <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
-
-      
+         
     
     <!-- Dynamic Shadow Effects - These will be populated at runtime -->
     <DropShadowEffect x:Key="DynamicWindowShadow" 
@@ -117,6 +114,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource InputFieldBorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="Margin" Value="0,0,0,12"/>
         <Setter Property="Effect">
             <Setter.Value>
                 <StaticResource ResourceKey="InputFieldShadow"/>

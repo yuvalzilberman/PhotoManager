@@ -12,7 +12,7 @@
         WindowStyle="None">
     
     <Window.Resources>
-        <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
+        <converters:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter"/>
     </Window.Resources>
     
     <Border Background="{DynamicResource WindowBackgroundBrush}" 
@@ -131,7 +131,7 @@
             <TextBlock Grid.Row="6"
                        Text="{Binding ErrorMessage}"
                        Style="{StaticResource ErrorTextStyle}"
-                       Visibility="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
+                       Visibility="{Binding ErrorMessage, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
             
             <!-- Create Account Link -->
             <TextBlock Grid.Row="7"

@@ -95,12 +95,21 @@ namespace PhotoManager.Wpf
             _photoService = photoService;
             CreateAccountCommand = new RelayCommand(async () => await OnCreateAccount());
             CancelCommand = new RelayCommand(OnCancel);
+
+            //var isConnected = await _photoService.TestConnectionAsync(); // Await the Task<bool> to get the result  
+            //if (!isConnected)
+            //{
+            //    ErrorMessage = "Cannot connect to the server. Please check if the API is running.";
+            //    return;
+            //}
         }
 
         private async Task OnCreateAccount()
         {
+            
+
             // Validation can be uncommented if needed
-            var addUser = new PhotoManager.Common.DTOs.AddUser
+            var addUser = new Common.DTOs.AddUser
             {
                 UserName = Username,
                 Email = Email,
@@ -109,15 +118,15 @@ namespace PhotoManager.Wpf
 
             try
             {
-                var response = await _photoService.AddUserAsync(addUser);
-                if (response.success)
+                var (success, message) = await _photoService.AddUserAsync(addUser);
+                if (success)
                 {
                     IsRegistrationSuccessful = true;
                     RequestClose?.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
-                    ErrorMessage = response.message;
+                    ErrorMessage = message;
                 }
             }
             catch (Exception ex)

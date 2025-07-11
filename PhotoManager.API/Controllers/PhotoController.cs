@@ -71,14 +71,36 @@ namespace PhotoManager.API.Controllers
         public async Task<IActionResult> AddUser([FromBody] AddUser user)
         {
             if (user == null)
+                return BadRequest(new AddUserResponse
+                {
+                    Status = AddUserStatus.Failed
+                });
+
+            try
             {
-                return BadRequest("User data is required.");
+                var appUser = new AppUser
+                {
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Password = user.Password,
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                _context.AppUsers.Add(appUser);
+                await _context.SaveChangesAsync();
+
+                return Ok(new AddUserResponse
+                {
+                    Status = AddUserStatus.Success
+                });
             }
-          //  _context.AppUsers.Add(user);
-          //  await _context.SaveChangesAsync();
-            return Ok(new { /*userId = user.Id, message = "User added successfully."*/ });
+            catch
+            {
+                return BadRequest(new AddUserResponse
+                {
+                    Status = AddUserStatus.Failed
+                });
+            }
         }
     }
-
-
-    }
+}

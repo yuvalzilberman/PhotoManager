@@ -24,6 +24,9 @@ namespace PhotoManager.Wpf.Resources
         public static string Registration_ConfirmPasswordPlaceholder => ResourceManager.GetString("Registration_ConfirmPasswordPlaceholder") ?? "Confirm Password";
         public static string Registration_CreateAccountButton => ResourceManager.GetString("Registration_CreateAccountButton") ?? "Create Account";
         public static string Registration_BackToLoginLink => ResourceManager.GetString("Registration_BackToLoginLink") ?? "Already have an account? Sign in";
+        public static string Registration_AddUser => ResourceManager.GetString("RegistrationViewModel_AddedUser") ?? "";
+        public static string Registration_AddUserFailure => ResourceManager.GetString("RegistrationViewModel_AddedUserFailure") ?? "";
+
 
         // Validation Messages
         public static string Validation_UsernameRequired => ResourceManager.GetString("Validation_UsernameRequired") ?? "Please enter a username.";

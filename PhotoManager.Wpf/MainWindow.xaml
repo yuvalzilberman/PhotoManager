@@ -11,10 +11,7 @@
         Width="900"
         WindowStartupLocation="CenterScreen">
 
-    <Window.Resources>
-        <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
-    </Window.Resources>
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

@@ -4,6 +4,7 @@
         xmlns:converters="clr-namespace:PhotoManager.Wpf.Converters"
         xmlns:resources="clr-namespace:PhotoManager.Wpf.Resources"
         xmlns:local="clr-namespace:PhotoManager.Wpf"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"        
         Title="Create Account" 
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
@@ -13,7 +14,7 @@
         WindowStyle="None">
     
     <Window.Resources>
-        <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
+        <converters:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter" Invert="True"/>
     </Window.Resources>
     
     <Border Background="{DynamicResource WindowBackgroundBrush}" 
@@ -22,7 +23,8 @@
             Margin="10"
             MouseLeftButtonDown="Border_MouseLeftButtonDown">
         
-        <Grid Width="250" Margin="40">
+        <Grid Width="250"
+              Margin="40">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -36,7 +38,6 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
-            <!-- Photo Icon -->
             <StackPanel Grid.Row="0" 
                         HorizontalAlignment="Center" 
                         Margin="0,0,0,15">
@@ -51,13 +52,11 @@
                       Height="30"/>
             </StackPanel>
             
-            <!-- Title -->
             <TextBlock Grid.Row="1" 
                        Text="Create Account" 
                        Style="{StaticResource TitleTextStyle}"
                        Margin="0,0,0,8"/>
             
-            <!-- Subtitle -->
             <TextBlock Grid.Row="2" 
                        Text="Enter your details to create a new account" 
                        Style="{StaticResource SubtitleTextStyle}"
@@ -65,47 +64,27 @@
             
             <!-- Username Field -->
             <Border Grid.Row="3" 
-                    Style="{StaticResource LoginInputFieldStyle}"
-                    Margin="0,0,0,12">
+                    Style="{StaticResource LoginInputFieldStyle}">
                 <Grid>
                     <TextBlock Text="Username" 
                                Panel.ZIndex="1"
-                               IsHitTestVisible="False">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource PlaceholderTextStyle}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Username}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                               IsHitTestVisible="False"
+                               Style="{StaticResource PlaceholderTextStyle}"
+                               Visibility="{Binding Username, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
                     <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource LoginTextBoxStyle}"/>
                 </Grid>
             </Border>
             
             <!-- Email Field -->
-            <Border Grid.Row="4" 
-                    Style="{StaticResource LoginInputFieldStyle}"
-                    Margin="0,0,0,12">
+            <Border Grid.Row="4"
+                    Style="{StaticResource LoginInputFieldStyle}">
                 <Grid>
                     <TextBlock Text="Email" 
                                Panel.ZIndex="1"
-                               IsHitTestVisible="False">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource PlaceholderTextStyle}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Email}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                               IsHitTestVisible="False"
+                               Style="{StaticResource PlaceholderTextStyle}"
+                               Visibility="{Binding Email, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
                     <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource LoginTextBoxStyle}"/>
                 </Grid>
@@ -113,49 +92,29 @@
             
             <!-- Password Field -->
             <Border Grid.Row="5" 
-                    Style="{StaticResource LoginInputFieldStyle}"
-                    Margin="0,0,0,12">
+                    Style="{StaticResource LoginInputFieldStyle}">
                 <Grid>
                     <TextBlock Text="Password" 
                                Panel.ZIndex="1"
-                               IsHitTestVisible="False">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource PlaceholderTextStyle}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Password}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                               IsHitTestVisible="False"
+                               Style="{StaticResource PlaceholderTextStyle}"
+                               Visibility="{Binding Password, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
                     <PasswordBox x:Name="PasswordBox"
-             local:PasswordBoxAssistant.BindPassword="True"
-                                 Style="{StaticResource LoginPasswordBoxStyle}"
-             local:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                 local:PasswordBoxAssistant.BindPassword="True"
+                                 local:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource LoginPasswordBoxStyle}"/>
                 </Grid>
             </Border>
             
             <!-- Confirm Password Field -->
             <Border Grid.Row="6" 
-                    Style="{StaticResource LoginInputFieldStyle}"
-                    Margin="0,0,0,20">
+                    Style="{StaticResource LoginInputFieldStyle}">
                 <Grid>
                     <TextBlock Text="Confirm Password" 
                                Panel.ZIndex="1"
-                               IsHitTestVisible="False">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource PlaceholderTextStyle}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ConfirmPassword}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                               IsHitTestVisible="False"
+                               Style="{StaticResource PlaceholderTextStyle}"
+                               Visibility="{Binding ConfirmPassword, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
                     <PasswordBox x:Name="ConfirmPasswordBox" 
                                  Style="{StaticResource LoginPasswordBoxStyle}"/>
                 </Grid>
@@ -183,7 +142,7 @@
             <TextBlock Grid.Row="8"
                        Text="{Binding ErrorMessage}"
                        Style="{StaticResource ErrorTextStyle}"
-                       Visibility="{Binding ErrorMessage, Converter={StaticResource StringNotEmptyConverter}}"/>
+                       Visibility="{Binding ErrorMessage, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
             
             <!-- Back to Login Link -->
             <TextBlock Grid.Row="9"
