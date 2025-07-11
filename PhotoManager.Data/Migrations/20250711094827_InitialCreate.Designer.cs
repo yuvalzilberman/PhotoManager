@@ -12,7 +12,7 @@ using PhotoManager.Data;
 namespace PhotoManager.Data.Migrations
 {
     [DbContext(typeof(PhotoDbContext))]
-    [Migration("20250705073823_InitialCreate")]
+    [Migration("20250711094827_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,7 +68,7 @@ namespace PhotoManager.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProfilePhotoUrl")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
