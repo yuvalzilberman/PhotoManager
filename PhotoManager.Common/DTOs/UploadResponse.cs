@@ -2,7 +2,7 @@
 {
     public class UploadResponse
     {
-        public UploadStatus Status { get; set; }
+        public Status Status { get; set; }
         public int? SavedCount { get; set; }
     }
 }

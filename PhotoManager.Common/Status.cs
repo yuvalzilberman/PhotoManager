@@ -1,8 +1,9 @@
 ﻿namespace PhotoManager.Common
-{
-    public enum UploadStatus
+{ 
+    public enum Status
     {
         Success,
+        Failed,
         NoFilesProvided,
         FilesNotFound,
         DatabaseError,

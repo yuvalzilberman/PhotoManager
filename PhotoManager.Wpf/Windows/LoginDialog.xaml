@@ -4,6 +4,7 @@
         xmlns:converters="clr-namespace:PhotoManager.Wpf.Converters"
         xmlns:resources="clr-namespace:PhotoManager.Wpf.Resources"
         xmlns:local="clr-namespace:PhotoManager.Wpf"
+        xmlns:utils="clr-namespace:PhotoManager.Wpf.Services"        
         Title="Account" 
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
@@ -96,8 +97,8 @@
                                Style="{StaticResource PlaceholderTextStyle}"
                                Visibility="{Binding Password, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
                     <PasswordBox x:Name="PasswordBox"
-                                 local:PasswordBoxAssistant.BindPassword="True"
-                                 local:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 utils:PasswordBoxAssistant.BindPassword="True"
+                                 utils:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource LoginPasswordBoxStyle}"/>
                 </Grid>
             </Border>            
@@ -112,8 +113,8 @@
                                Style="{StaticResource PlaceholderTextStyle}"
                                Visibility="{Binding ConfirmPassword, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
                     <PasswordBox x:Name="ConfirmPasswordBox"
-                                 local:PasswordBoxAssistant.BindPassword="True"
-                                 local:PasswordBoxAssistant.BoundPassword="{Binding ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 utils:PasswordBoxAssistant.BindPassword="True"
+                                 utils:PasswordBoxAssistant.BoundPassword="{Binding ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource LoginPasswordBoxStyle}"/>
                 </Grid>
             </Border>

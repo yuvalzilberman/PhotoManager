@@ -98,7 +98,7 @@ namespace PhotoManager.Wpf.Services
             {
                 var result = await PostAsync<AddUserResponse>("api/Photo/AddUser", user);
                 
-                return result == null || result.Status == AddUserStatus.Failed ?
+                return result == null || result.Status == Common.Status.Failed ?
                     (false, StringResourceManager.Registration_AddUserFailure) :
                     (true, StringResourceManager.Registration_AddUser);
             }

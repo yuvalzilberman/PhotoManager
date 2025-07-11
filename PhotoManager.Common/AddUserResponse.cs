@@ -2,6 +2,6 @@
 {
     public class AddUserResponse
     {
-        public AddUserStatus Status { get; set; }
+        public Status Status { get; set; }
     }
 }

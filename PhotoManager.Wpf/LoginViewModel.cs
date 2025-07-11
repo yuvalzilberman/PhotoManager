@@ -13,6 +13,17 @@ namespace PhotoManager.Wpf
         private readonly PhotoService _photoService;
         public event EventHandler RequestClose;
 
+        public string DialogTitle => IsLoginMode ? StringResourceManager.Login_Title : StringResourceManager.Registration_Title;
+        public string DialogSubtitle => IsLoginMode ? StringResourceManager.Login_Subtitle : StringResourceManager.Registration_Subtitle;
+        public string PrimaryButtonText => IsLoginMode ? StringResourceManager.Login_SignInButton : StringResourceManager.Registration_CreateAccountButton;
+        public string SwitchModeText => IsLoginMode ? StringResourceManager.Login_CreateAccountLink : StringResourceManager.Registration_SignInLink;
+
+        public ICommand PrimaryCommand => IsLoginMode ? LoginCommand : RegisterCommand;
+        public ICommand LoginCommand { get; }
+        public ICommand RegisterCommand { get; }
+        public ICommand CancelCommand { get; }
+        public ICommand SwitchModeCommand { get; }
+
         private string _username = string.Empty;
         private string _email = string.Empty;
         private string _password = string.Empty;
@@ -117,17 +128,6 @@ namespace PhotoManager.Wpf
             }
         }
 
-        public string DialogTitle => IsLoginMode ? StringResourceManager.Login_Title : StringResourceManager.Registration_Title;
-        public string DialogSubtitle => IsLoginMode ? StringResourceManager.Login_Subtitle : StringResourceManager.Registration_Subtitle;
-        public string PrimaryButtonText => IsLoginMode ? StringResourceManager.Login_SignInButton : StringResourceManager.Registration_CreateAccountButton;
-        public string SwitchModeText => IsLoginMode ? StringResourceManager.Login_CreateAccountLink : StringResourceManager.Registration_SignInLink;
-
-        public ICommand PrimaryCommand => IsLoginMode ? LoginCommand : RegisterCommand;
-        public ICommand LoginCommand { get; }
-        public ICommand RegisterCommand { get; }
-        public ICommand CancelCommand { get; }
-        public ICommand SwitchModeCommand { get; }
-
         public AccountViewModel(PhotoService photoService)
         {
             _photoService = photoService;
@@ -154,45 +154,18 @@ namespace PhotoManager.Wpf
 
         private async Task OnLogin()
         {
-            // TODO: Implement actual authentication logic with PhotoService
-            if (string.IsNullOrWhiteSpace(Username))
-            {
-                StatusMessage = StringResourceManager.Validation_UsernameRequired;
-                Status = Status.InValid;
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(Password))
-            {
-                StatusMessage = StringResourceManager.Validation_PasswordRequired;
-                Status = Status.InValid;
-                return;
-            }
-            // Simulate login success
+            if (!ValidateLogin()) return;
+            
             IsOperationSuccessful = true;
             RequestClose?.Invoke(this, EventArgs.Empty);
         }
 
         private async Task OnRegister()
         {
-            if (!IsValidEmail(Email))
-            {
-                StatusMessage = StringResourceManager.Validation_EmailInvalid;
-                Status = Status.InValid;
-                return;
-            }
-            if (!Password.Equals(ConfirmPassword))
-            {
-                StatusMessage = StringResourceManager.Validation_PasswordsDoNotMatch;
-                Status = Status.InValid;
-                return;
-            }
-            var addUser = new AppUser
-            {
-                UserName = Username,
-                Email = Email,
-                Password = Password,
-                CreatedAt = DateTime.Now.AddMilliseconds(-DateTime.Now.Millisecond)
-            };
+            if (!ValidateRegisteration()) return;
+
+            var addUser = new AppUser(Username, Password, Email);
+            
             try
             {
                 var (success, message) = await _photoService.AddUserAsync(addUser);
@@ -215,6 +188,40 @@ namespace PhotoManager.Wpf
                 Status = Status.InValid;
             }
         }
+
+        private bool ValidateLogin()
+        {
+            if (string.IsNullOrWhiteSpace(Username))
+            {
+                StatusMessage = StringResourceManager.Validation_UsernameRequired;
+                Status = Status.InValid;
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(Password))
+            {
+                StatusMessage = StringResourceManager.Validation_PasswordRequired;
+                Status = Status.InValid;
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateRegisteration()
+        {
+            if (!IsValidEmail(Email))
+            {
+                StatusMessage = StringResourceManager.Validation_EmailInvalid;
+                Status = Status.InValid;
+                return false;
+            }
+            if (!Password.Equals(ConfirmPassword))
+            {
+                StatusMessage = StringResourceManager.Validation_PasswordsDoNotMatch;
+                Status = Status.InValid;
+                return false;
+            }
+            return true;
+        }        
 
         private void OnCancel()
         {

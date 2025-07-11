@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows;
 
-namespace PhotoManager.Wpf
+namespace PhotoManager.Wpf.Services
 {
     public static class PasswordBoxAssistant
     {

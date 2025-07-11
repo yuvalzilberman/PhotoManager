@@ -34,7 +34,7 @@ namespace PhotoManager.API.Controllers
             {
                 return BadRequest(new UploadResponse
                 {
-                    Status = UploadStatus.NoFilesProvided
+                    Status = Status.NoFilesProvided
                 });
             }
 
@@ -53,7 +53,7 @@ namespace PhotoManager.API.Controllers
             {
                 return BadRequest(new UploadResponse
                 {
-                    Status = UploadStatus.FilesNotFound
+                    Status = Status.FilesNotFound
                 });
             }
 
@@ -62,7 +62,7 @@ namespace PhotoManager.API.Controllers
 
             return Ok(new UploadResponse
             {
-                Status = UploadStatus.Success,
+                Status = Status.Success,
                 SavedCount = photos.Count
             });
         }
@@ -73,7 +73,7 @@ namespace PhotoManager.API.Controllers
             if (user == null)
                 return BadRequest(new AddUserResponse
                 {
-                    Status = AddUserStatus.Failed
+                    Status = Status.Failed
                 });
 
             try
@@ -91,14 +91,14 @@ namespace PhotoManager.API.Controllers
 
                 return Ok(new AddUserResponse
                 {
-                    Status = AddUserStatus.Success
+                    Status = Status.Success
                 });
             }
             catch
             {
                 return BadRequest(new AddUserResponse
                 {
-                    Status = AddUserStatus.Failed
+                    Status = Status.Failed
                 });
             }
         }
