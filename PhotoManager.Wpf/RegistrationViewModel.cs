@@ -2,15 +2,10 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Text.RegularExpressions;
+
 using PhotoManager.Wpf.Resources;
 using PhotoManager.Wpf.Services;
-using System;
-using System.Threading.Tasks;
-using System.Text.Json;
-using System.Net.Http;
-using System.Text;
 using PhotoManager.Data.Models;
-using System.Net.Http.Headers;
 
 namespace PhotoManager.Wpf
 {
@@ -123,7 +118,7 @@ namespace PhotoManager.Wpf
                 !string.IsNullOrWhiteSpace(Password) &&
                 !string.IsNullOrWhiteSpace(Email) &&
                 !string.IsNullOrWhiteSpace(ConfirmPassword);
-        } 
+        }        
 
         private async Task OnCreateAccount()
         {

@@ -13,7 +13,17 @@ namespace PhotoManager.Wpf
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+            if (e.LeftButton == MouseButtonState.Pressed && ReferenceEquals(e.OriginalSource, sender))
+            {
+                try
+                {
+                    this.DragMove();
+                }
+                catch (InvalidOperationException)
+                {
+                    // Ignore exception if window is closing or not in a valid state for DragMove
+                }
+            }
         }
 
         private void CreateAccount_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
