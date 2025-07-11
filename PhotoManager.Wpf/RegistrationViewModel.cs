@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Net.Http;
 using System.Text;
 using PhotoManager.Data.Models;
+using System.Net.Http.Headers;
 
 namespace PhotoManager.Wpf
 {
@@ -21,7 +22,8 @@ namespace PhotoManager.Wpf
         private string _email = string.Empty;
         private string _password = string.Empty;
         private string _confirmPassword = string.Empty;
-        private string _errorMessage = string.Empty;
+        private string _statusMessage = string.Empty;
+        private Status _status = Status.Valid;
         private bool _isRegistrationSuccessful = false;
 
         public string Username
@@ -68,12 +70,22 @@ namespace PhotoManager.Wpf
             }
         }
 
-        public string ErrorMessage
+        public Status Status
         {
-            get => _errorMessage;
+            get => _status;
             set
             {
-                _errorMessage = value;
+                _status = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string StatusMessage
+        {
+            get => _statusMessage;
+            set
+            {
+                _statusMessage = value;
                 OnPropertyChanged();
             }
         }
@@ -117,13 +129,15 @@ namespace PhotoManager.Wpf
         {
             if (!IsValidEmail(Email))
             {
-                ErrorMessage = StringResourceManager.Validation_EmailInvalid;
+                StatusMessage = StringResourceManager.Validation_EmailInvalid;
+                Status = Status.InValid;
                 return;
             }
 
             if (!Password.Equals(ConfirmPassword))
             {
-                ErrorMessage = StringResourceManager.Validation_PasswordsDoNotMatch;
+                StatusMessage = StringResourceManager.Validation_PasswordsDoNotMatch;
+                Status = Status.InValid;
                 return;
             }
 
@@ -132,7 +146,7 @@ namespace PhotoManager.Wpf
                 UserName = Username,
                 Email = Email,
                 Password = Password,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.Now.AddMilliseconds(-DateTime.Now.Millisecond)
             };    
                        
             try
@@ -142,15 +156,19 @@ namespace PhotoManager.Wpf
                 {
                     IsRegistrationSuccessful = true;
                     RequestClose?.Invoke(this, EventArgs.Empty);
+                    StatusMessage = StringResourceManager.Registration_UserAdded;
+                    Status = Status.Valid;
                 }
                 else
                 {
-                    ErrorMessage = message;
+                    StatusMessage = message;
+                    Status = Status.InValid;
                 }
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Exception: {ex.Message}";
+                StatusMessage = $"Exception: {ex.Message}";
+                Status = Status.InValid;
             }
         }
 
@@ -162,9 +180,9 @@ namespace PhotoManager.Wpf
 
         private void ClearError()
         {
-            if (!string.IsNullOrEmpty(ErrorMessage))
+            if (!string.IsNullOrEmpty(StatusMessage))
             {
-                ErrorMessage = string.Empty;
+                StatusMessage = string.Empty;
             }
         }
 

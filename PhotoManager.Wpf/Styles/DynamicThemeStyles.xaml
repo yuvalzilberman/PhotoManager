@@ -1,11 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:configuration="clr-namespace:PhotoManager.Wpf.Configuration"
-                    xmlns:converters="clr-namespace:PhotoManager.Wpf.Converters">
-
-         
+                    xmlns:converters="clr-namespace:PhotoManager.Wpf.Converters"
+                    xmlns:wpf="clr-namespace:PhotoManager.Wpf">         
     
-    <!-- Dynamic Shadow Effects - These will be populated at runtime -->
     <DropShadowEffect x:Key="DynamicWindowShadow" 
                       BlurRadius="20" 
                       Direction="270" 
@@ -75,6 +73,7 @@
     <SolidColorBrush x:Key="LightGrayTextBrush" Color="#CCCCCC"/>
     <SolidColorBrush x:Key="PlaceholderTextBrush" Color="#999999"/>
     <SolidColorBrush x:Key="ErrorTextBrush" Color="#F14C4C"/>
+    <SolidColorBrush x:Key="ValidTextBrush" Color="Green"/>
 
     <!-- Gradient Background -->
     <LinearGradientBrush x:Key="WindowGradientBrush" StartPoint="0,0" EndPoint="0,1">
@@ -168,11 +167,16 @@
     </Style>
 
     <!-- Error Text Style -->
-    <Style x:Key="ErrorTextStyle" TargetType="TextBlock">
+    <Style x:Key="StatusTextStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource ErrorTextBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="11"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Status}" Value="{x:Static wpf:Status.Valid}">
+                <Setter Property="Foreground" Value="{StaticResource ValidTextBrush}"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <!-- Create Account Link Style -->

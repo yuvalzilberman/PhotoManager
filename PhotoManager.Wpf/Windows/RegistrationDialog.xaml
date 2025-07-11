@@ -137,12 +137,12 @@
                         Style="{StaticResource SecondaryButtonStyle}"/>
             </StackPanel>
             
-            <!-- Error Message -->
+            <!-- Status Message -->            
             <TextBlock Grid.Row="8"
-                       Text="{Binding ErrorMessage}"
-                       Style="{StaticResource ErrorTextStyle}"
-                       Visibility="{Binding ErrorMessage, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
-            
+                       Text="{Binding StatusMessage}"
+                       Style="{StaticResource StatusTextStyle}"
+                       Visibility="{Binding StatusMessage, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
+
             <!-- Back to Login Link -->
             <TextBlock Grid.Row="9"
                        Text="Already have an account? Sign in"

@@ -26,6 +26,7 @@ namespace PhotoManager.Wpf.Resources
         public static string Registration_BackToLoginLink => ResourceManager.GetString("Registration_BackToLoginLink") ?? "Already have an account? Sign in";
         public static string Registration_AddUser => ResourceManager.GetString("RegistrationViewModel_AddedUser") ?? "";
         public static string Registration_AddUserFailure => ResourceManager.GetString("RegistrationViewModel_AddedUserFailure") ?? "";
+        public static string Registration_UserAdded => ResourceManager.GetString("RegistrationViewModel_UserAdded") ?? "";
 
 
         // Validation Messages
@@ -36,7 +37,9 @@ namespace PhotoManager.Wpf.Resources
         public static string Validation_PasswordRequired => ResourceManager.GetString("Validation_PasswordRequired") ?? "Please enter a password.";
         public static string Validation_PasswordMinLength => ResourceManager.GetString("Validation_PasswordMinLength") ?? "Password must be at least 6 characters long.";
         public static string Validation_ConfirmPasswordRequired => ResourceManager.GetString("Validation_ConfirmPasswordRequired") ?? "Please confirm your password.";
-        public static string Validation_PasswordsDoNotMatch => ResourceManager.GetString("Validation_PasswordsDoNotMatch") ?? "Passwords do not match.";
+        public static string Validation_PasswordsDoNotMatch => ResourceManager.GetString("Validation_PasswordsDoNotMatch") ?? "Passwords do not match.";        
+
+        
 
         // Main Window Strings
         public static string MainWindow_Title => ResourceManager.GetString("MainWindow_Title") ?? "Photo Manager";
