@@ -76,7 +76,7 @@
                         Command="{Binding BrowseCommand}"/>
                 <Button Content="Upload Photo" Width="120"
                         Command="{Binding UploadCommand}"/>
-                <TextBox Text="{Binding SelectedFilePathDisplay}" Width="300" Margin="10,0,0,0"
+                <TextBox Text="{Binding SelectedFilePathDisplay, Mode=OneWay}" Width="300" Margin="10,0,0,0"
                          VerticalAlignment="Center" IsReadOnly="True"/>
             </StackPanel>
 

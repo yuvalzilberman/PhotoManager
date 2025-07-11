@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:converters="clr-namespace:PhotoManager.Wpf.Converters"
         xmlns:resources="clr-namespace:PhotoManager.Wpf.Resources"
-        Title="Login" 
+        xmlns:local="clr-namespace:PhotoManager.Wpf"
+        Title="Account" 
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
@@ -12,7 +13,9 @@
         WindowStyle="None">
     
     <Window.Resources>
-        <converters:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter"/>
+        <converters:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter" Invert="True"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
     </Window.Resources>
     
     <Border Background="{DynamicResource WindowBackgroundBrush}" 
@@ -20,8 +23,7 @@
             Effect="{StaticResource WindowShadow}"
             Margin="10"
             MouseLeftButtonDown="Border_MouseLeftButtonDown">
-        
-        <Grid Width="200" Margin="40">
+        <Grid Width="260" Margin="40">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -30,115 +32,119 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <!-- Photo Icon -->
-            <StackPanel Grid.Row="0" 
-                        HorizontalAlignment="Center" 
+            <!-- Icon -->
+            <StackPanel Grid.Row="0"
+                        HorizontalAlignment="Center"
                         Margin="0,0,0,15">
-                <Ellipse Width="60" 
-                         Height="60" 
+                <Ellipse Width="60"
+                         Height="60"
                          Style="{StaticResource IconEllipseStyle}"
                          Margin="0,0,0,8"/>
-                <Path Data="{StaticResource CameraIcon}" 
-                      Fill="White" 
-                      Stretch="Uniform" 
-                      Width="30" 
+                <Path Data="{StaticResource UserIcon}"
+                      Fill="White"
+                      Stretch="Uniform"
+                      Width="30"
                       Height="30"/>
             </StackPanel>
             
-            <!-- Welcome Title -->
-            <TextBlock Grid.Row="1" 
-                       Text="Welcome" 
+            <TextBlock Grid.Row="1"
+                       Text="{Binding DialogTitle}"
                        Style="{StaticResource TitleTextStyle}"
                        Margin="0,0,0,8"/>
             
-            <!-- Subtitle -->
-            <TextBlock Grid.Row="2" 
-                       Text="Sign in to your existing account" 
+            <TextBlock Grid.Row="2"
+                       Text="{Binding DialogSubtitle}"
                        Style="{StaticResource SubtitleTextStyle}"
                        Margin="0,0,0,20"/>
             
-            <!-- Username Field -->
-            <Border Grid.Row="3" 
-                    Style="{StaticResource LoginInputFieldStyle}"
-                    Margin="0,0,0,12">
+            <!-- Username Field (Always visible) -->
+            <Border Grid.Row="3"
+                    Style="{StaticResource LoginInputFieldStyle}">
                 <Grid>
-                    <TextBlock Text="User name" 
-                               
+                    <TextBlock Text="{x:Static resources:StringResourceManager.Login_UsernamePlaceholder}"
                                Panel.ZIndex="1"
-                               IsHitTestVisible="False">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource PlaceholderTextStyle}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Username}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                               IsHitTestVisible="False"
+                               Style="{StaticResource PlaceholderTextStyle}"
+                               Visibility="{Binding Username, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
+                    <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource LoginTextBoxStyle}"/>
+                </Grid>
+            </Border>
+            <!-- Email Field (Registration only) -->
+            <Border Grid.Row="4"
+                    Style="{StaticResource LoginInputFieldStyle}"
+                    Visibility="{Binding IsLoginMode, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                <Grid>
+                    <TextBlock Text="{x:Static resources:StringResourceManager.Login_EmailPlaceholder}"
+                               Panel.ZIndex="1"
+                               IsHitTestVisible="False"
+                               Style="{StaticResource PlaceholderTextStyle}"
+                               Visibility="{Binding Email, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
+                    <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource LoginTextBoxStyle}"/>
                 </Grid>
             </Border>
-            
-            <!-- Password Field -->
-            <Border Grid.Row="4" 
-                    Style="{StaticResource LoginInputFieldStyle}"
-                    Margin="0,0,0,20">
+            <!-- Password Field (Always visible) -->
+            <Border Grid.Row="5"
+                    Style="{StaticResource LoginInputFieldStyle}">
                 <Grid>
-                    <TextBlock Text="Password" 
-                               
+                    <TextBlock Text="{x:Static resources:StringResourceManager.Login_PasswordPlaceholder}"
                                Panel.ZIndex="1"
-                               IsHitTestVisible="False">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource PlaceholderTextStyle}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Password}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <PasswordBox x:Name="PasswordBox" 
+                               IsHitTestVisible="False"
+                               Style="{StaticResource PlaceholderTextStyle}"
+                               Visibility="{Binding Password, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
+                    <PasswordBox x:Name="PasswordBox"
+                                 local:PasswordBoxAssistant.BindPassword="True"
+                                 local:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource LoginPasswordBoxStyle}"/>
+                </Grid>
+            </Border>            
+            <!-- Confirm Password Field (Registration only) -->
+            <Border Grid.Row="6"
+                    Style="{StaticResource LoginInputFieldStyle}"
+                    Visibility="{Binding IsLoginMode, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                <Grid>
+                    <TextBlock Text="{x:Static resources:StringResourceManager.Login_ConfirmPasswordPlaceholder}"
+                               Panel.ZIndex="1"
+                               IsHitTestVisible="False"
+                               Style="{StaticResource PlaceholderTextStyle}"
+                               Visibility="{Binding ConfirmPassword, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
+                    <PasswordBox x:Name="ConfirmPasswordBox"
+                                 local:PasswordBoxAssistant.BindPassword="True"
+                                 local:PasswordBoxAssistant.BoundPassword="{Binding ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource LoginPasswordBoxStyle}"/>
                 </Grid>
             </Border>
-            
             <!-- Buttons -->
-            <StackPanel Grid.Row="5" 
-                        Orientation="Horizontal" 
+            <StackPanel Grid.Row="7"
+                        Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         Margin="0,0,0,12">
-                <Button Content="{x:Static resources:StringResourceManager.Login_SignInButton}" 
-                        Width="80" 
-                        Height="35" 
+                <Button Content="{Binding PrimaryButtonText}"
+                        Width="100"
+                        Height="35"
                         Margin="0,0,10,0"
-                        Command="{Binding LoginCommand}"
+                        Command="{Binding PrimaryCommand}"
                         Style="{StaticResource PrimaryButtonStyle}"/>
-                <Button Content="{x:Static resources:StringResourceManager.Login_CancelButton}" 
-                        Width="80" 
+                <Button Content="{x:Static resources:StringResourceManager.Login_CancelButton}"
+                        Width="80"
                         Height="35"
                         Command="{Binding CancelCommand}"
                         Style="{StaticResource SecondaryButtonStyle}"/>
             </StackPanel>
-            
-            <!-- Error Message -->
-            <TextBlock Grid.Row="6"
+            <!-- Status Message -->
+            <TextBlock Grid.Row="8"
                        Text="{Binding StatusMessage}"
                        Style="{StaticResource StatusTextStyle}"
-                       Visibility="{Binding ErrorMessage, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
-            
-            <!-- Create Account Link -->
-            <TextBlock Grid.Row="7"
-                       Text="Don't have an account? Create one"
+                       Visibility="{Binding StatusMessage, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
+            <!-- Switch Mode Link -->
+            <TextBlock Grid.Row="9"
+                       Text="{Binding SwitchModeText}"
                        Style="{StaticResource CreateAccountLinkStyle}"
                        Cursor="Hand"
-                       MouseLeftButtonDown="CreateAccount_MouseLeftButtonDown"/>
+                       MouseLeftButtonDown="SwitchMode_MouseLeftButtonDown"/>
         </Grid>
     </Border>
 </Window> 

@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using PhotoManager.Data.Models;
 using PhotoManager.Wpf.Services;
+using PhotoManager.Wpf;
 
 namespace PhotoManager.Wpf
 {
@@ -88,8 +89,8 @@ namespace PhotoManager.Wpf
             var loginDialog = new LoginDialog();
             if (loginDialog.ShowDialog() == true)
             {
-                var loginViewModel = (LoginViewModel)loginDialog.DataContext;
-                if (loginViewModel.IsLoginSuccessful)
+                var loginViewModel = (AccountViewModel)loginDialog.DataContext;
+                if (loginViewModel.IsOperationSuccessful)
                 {
                     LoggedInUsername = loginViewModel.Username;
                     IsLoggedIn = true;

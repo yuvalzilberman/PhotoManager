@@ -129,6 +129,12 @@
   <data name="Login_PasswordPlaceholder" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="Login_EmailPlaceholder" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Login_ConfirmPasswordPlaceholder" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
   <data name="Login_SignInButton" xml:space="preserve">
     <value>Sign In</value>
   </data>
@@ -137,6 +143,9 @@
   </data>
   <data name="Login_CreateAccountLink" xml:space="preserve">
     <value>Don't have an account? Create one</value>
+  </data>
+  <data name="Login_Title" xml:space="preserve">
+    <value>Login</value>
   </data>
   <data name="Registration_Title" xml:space="preserve">
     <value>Create Account</value>
@@ -160,6 +169,9 @@
     <value>Create Account</value>
   </data>
   <data name="Registration_BackToLoginLink" xml:space="preserve">
+    <value>Already have an account? Sign in</value>
+  </data>
+  <data name="Registration_SignInLink" xml:space="preserve">
     <value>Already have an account? Sign in</value>
   </data>
   <data name="Validation_UsernameRequired" xml:space="preserve">

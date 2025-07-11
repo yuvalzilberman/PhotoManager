@@ -14,6 +14,9 @@ namespace PhotoManager.Wpf.Resources
         public static string Login_SignInButton => ResourceManager.GetString("Login_SignInButton") ?? "Sign In";
         public static string Login_CancelButton => ResourceManager.GetString("Login_CancelButton") ?? "Cancel";
         public static string Login_CreateAccountLink => ResourceManager.GetString("Login_CreateAccountLink") ?? "Don't have an account? Create one";
+        public static string Login_EmailPlaceholder => ResourceManager.GetString("Login_EmailPlaceholder") ?? "Email";
+        public static string Login_ConfirmPasswordPlaceholder => ResourceManager.GetString("Login_ConfirmPasswordPlaceholder") ?? "Confirm Password";
+        public static string Login_Title => ResourceManager.GetString("Login_Title") ?? "Login";
 
         // Registration Dialog Strings
         public static string Registration_Title => ResourceManager.GetString("Registration_Title") ?? "Create Account";
@@ -24,6 +27,7 @@ namespace PhotoManager.Wpf.Resources
         public static string Registration_ConfirmPasswordPlaceholder => ResourceManager.GetString("Registration_ConfirmPasswordPlaceholder") ?? "Confirm Password";
         public static string Registration_CreateAccountButton => ResourceManager.GetString("Registration_CreateAccountButton") ?? "Create Account";
         public static string Registration_BackToLoginLink => ResourceManager.GetString("Registration_BackToLoginLink") ?? "Already have an account? Sign in";
+        public static string Registration_SignInLink => ResourceManager.GetString("Registration_SignInLink") ?? "Already have an account? Sign in";
         public static string Registration_AddUser => ResourceManager.GetString("RegistrationViewModel_AddedUser") ?? "";
         public static string Registration_AddUserFailure => ResourceManager.GetString("RegistrationViewModel_AddedUserFailure") ?? "";
         public static string Registration_UserAdded => ResourceManager.GetString("RegistrationViewModel_UserAdded") ?? "";
