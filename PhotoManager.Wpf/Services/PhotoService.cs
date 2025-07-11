@@ -6,6 +6,7 @@ using PhotoManager.Data.Models;
 using PhotoManager.Common.DTOs;
 using PhotoManager.Common;
 using PhotoManager.Wpf.Resources;
+using System.Windows.Navigation;
 
 
 namespace PhotoManager.Wpf.Services
@@ -108,5 +109,38 @@ namespace PhotoManager.Wpf.Services
                 return (false, $"Exception occurred: {ex.Message}");
             }
         }
-    }
+
+        internal async Task<(bool, string, AppUser?)> GetUserAsync(string userName, string password)
+        {
+            if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
+                return (false, "Username and password cannot be empty", null);
+
+            var user = new GetUser
+            {
+                UserName = userName,
+                Password = password
+            };
+
+            try
+            {
+                var result = await PostAsync<GetUserResponse>("api/photo/GetUser", user);
+
+                try
+                {
+                   return result == null || result.Status == Common.Status.Failed ?
+                        (true, "", null) :
+                        (true, StringResourceManager.Registration_AddUser, result.User);
+                }
+                catch
+                {
+                    return (true, "", null);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Exception in GetUserAsync: {ex}");
+                return (false, $"Exception occurred: {ex.Message}", null);
+            }
+        }
+        }
 }

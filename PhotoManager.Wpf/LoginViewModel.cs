@@ -155,7 +155,14 @@ namespace PhotoManager.Wpf
         private async Task OnLogin()
         {
             if (!ValidateLogin()) return;
-            
+
+            var(success, message, user) =  await _photoService.GetUserAsync(Username, Password);
+            if (!success)
+            {
+                StatusMessage = message;
+                Status = Status.InValid;
+                return;
+            }
             IsOperationSuccessful = true;
             RequestClose?.Invoke(this, EventArgs.Empty);
         }

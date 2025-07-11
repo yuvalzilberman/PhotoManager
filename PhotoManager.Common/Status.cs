@@ -7,6 +7,7 @@
         NoFilesProvided,
         FilesNotFound,
         DatabaseError,
-        UnknownError
+        UnknownError,
+        UserNotFound
     }
 }

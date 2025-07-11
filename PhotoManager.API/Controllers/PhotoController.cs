@@ -102,5 +102,26 @@ namespace PhotoManager.API.Controllers
                 });
             }
         }
+
+        [HttpPost("GetUser")]
+        public async Task<IActionResult> GetUser(GetUser user)
+        {
+            var dbUser = await _context.AppUsers.Where(i =>
+                i.UserName.Equals(user.UserName) &&
+                i.Password.Equals(user.Password))
+                .FirstOrDefaultAsync();
+
+            if (dbUser == null)
+                return NotFound(new GetUserResponse
+                {
+                    Status = Status.UserNotFound
+                });
+
+            return Ok(new GetUserResponse
+            {
+                Status = Status.Success,
+                User = dbUser
+            });
+        }
     }
 }
