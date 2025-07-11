@@ -14,7 +14,8 @@
         WindowStyle="None">
     
     <Window.Resources>
-        <converters:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter" Invert="True"/>
+        <converters:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityConverter" Invert="False"/>
+        <converters:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibilityInvertConverter" Invert="True"/>
     </Window.Resources>
     
     <Border Background="{DynamicResource WindowBackgroundBrush}" 
@@ -70,7 +71,7 @@
                                Panel.ZIndex="1"
                                IsHitTestVisible="False"
                                Style="{StaticResource PlaceholderTextStyle}"
-                               Visibility="{Binding Username, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
+                               Visibility="{Binding Username, Converter={StaticResource EmptyStringToVisibilityInvertConverter}}"/>
                     <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource LoginTextBoxStyle}"/>
                 </Grid>
@@ -84,7 +85,7 @@
                                Panel.ZIndex="1"
                                IsHitTestVisible="False"
                                Style="{StaticResource PlaceholderTextStyle}"
-                               Visibility="{Binding Email, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
+                               Visibility="{Binding Email, Converter={StaticResource EmptyStringToVisibilityInvertConverter}}"/>
                     <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource LoginTextBoxStyle}"/>
                 </Grid>
@@ -98,7 +99,7 @@
                                Panel.ZIndex="1"
                                IsHitTestVisible="False"
                                Style="{StaticResource PlaceholderTextStyle}"
-                               Visibility="{Binding Password, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
+                               Visibility="{Binding Password, Converter={StaticResource EmptyStringToVisibilityInvertConverter}}"/>
                     <PasswordBox x:Name="PasswordBox"
                                  local:PasswordBoxAssistant.BindPassword="True"
                                  local:PasswordBoxAssistant.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -114,8 +115,10 @@
                                Panel.ZIndex="1"
                                IsHitTestVisible="False"
                                Style="{StaticResource PlaceholderTextStyle}"
-                               Visibility="{Binding ConfirmPassword, Converter={StaticResource EmptyStringToVisibilityConverter}}"/>
-                    <PasswordBox x:Name="ConfirmPasswordBox" 
+                               Visibility="{Binding ConfirmPassword, Converter={StaticResource EmptyStringToVisibilityInvertConverter}}"/>
+                    <PasswordBox x:Name="ConfirmPasswordBox"
+                                 local:PasswordBoxAssistant.BindPassword="True"
+                                 local:PasswordBoxAssistant.BoundPassword="{Binding ConfirmPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource LoginPasswordBoxStyle}"/>
                 </Grid>
             </Border>
@@ -126,14 +129,10 @@
                         HorizontalAlignment="Center"
                         Margin="0,0,0,12">
                 <Button Content="{x:Static resources:StringResourceManager.Registration_CreateAccountButton}" 
-                        Width="100" 
-                        Height="35" 
-                        Margin="0,0,10,0"
+                        Margin="0,0,10,0"                        
                         Command="{Binding CreateAccountCommand}"
                         Style="{StaticResource PrimaryButtonStyle}"/>
                 <Button Content="{x:Static resources:StringResourceManager.Login_CancelButton}" 
-                        Width="80" 
-                        Height="35"
                         Command="{Binding CancelCommand}"
                         Style="{StaticResource SecondaryButtonStyle}"/>
             </StackPanel>

@@ -81,14 +81,22 @@ namespace PhotoManager.Wpf.Services
             }
         }
 
-        internal async Task<(bool, string)> AddUserAsync(AddUser addUser)
+        internal async Task<(bool, string)> AddUserAsync(AppUser addUser)
         {
             if (addUser == null)
                 return (false, "User cannot be null");
 
+            var user = new AddUser
+            {
+                UserName = addUser.UserName,
+                Email = addUser.Email,
+                Password = addUser.Password, //Utils.Encrypt(addUser.Password),
+                CreatedAt = addUser.CreatedAt
+            };
+
             try
             {
-                var result = await PostAsync<AddUserResponse>("api/Photo/AddUser", addUser);
+                var result = await PostAsync<AddUserResponse>("api/Photo/AddUser", user);
                 
                 return result == null || result.Status == AddUserStatus.Failed ?
                     (false, StringResourceManager.Registration_AddUserFailure) :

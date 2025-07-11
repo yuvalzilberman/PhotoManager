@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Net.Http;
 using System.Text;
+using PhotoManager.Data.Models;
 
 namespace PhotoManager.Wpf
 {
@@ -93,7 +94,7 @@ namespace PhotoManager.Wpf
         public RegistrationViewModel(PhotoService photoService)
         {
             _photoService = photoService;
-            CreateAccountCommand = new RelayCommand(async () => await OnCreateAccount());
+            CreateAccountCommand = new RelayCommand(async () => await OnCreateAccount(), OnCreateAccountCanExecute);
             CancelCommand = new RelayCommand(OnCancel);
 
             //var isConnected = await _photoService.TestConnectionAsync(); // Await the Task<bool> to get the result  
@@ -104,18 +105,36 @@ namespace PhotoManager.Wpf
             //}
         }
 
+        private bool OnCreateAccountCanExecute()
+        {
+            return !string.IsNullOrWhiteSpace(Username) &&
+                !string.IsNullOrWhiteSpace(Password) &&
+                !string.IsNullOrWhiteSpace(Email) &&
+                !string.IsNullOrWhiteSpace(ConfirmPassword);
+        } 
+
         private async Task OnCreateAccount()
         {
-            
+            if (!IsValidEmail(Email))
+            {
+                ErrorMessage = StringResourceManager.Validation_EmailInvalid;
+                return;
+            }
 
-            // Validation can be uncommented if needed
-            var addUser = new Common.DTOs.AddUser
+            if (!Password.Equals(ConfirmPassword))
+            {
+                ErrorMessage = StringResourceManager.Validation_PasswordsDoNotMatch;
+                return;
+            }
+
+            var addUser = new AppUser
             {
                 UserName = Username,
                 Email = Email,
-                Password = Password
-            };
-
+                Password = Password,
+                CreatedAt = DateTime.UtcNow
+            };    
+                       
             try
             {
                 var (success, message) = await _photoService.AddUserAsync(addUser);

@@ -104,6 +104,9 @@
                 <Setter Property="Background" Value="{StaticResource PressedOrangeBrush}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource PressedOrangeBrush}"/>
             </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.3"/>
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -187,24 +190,26 @@
         </Style.Triggers>
     </Style>
 
-    <!-- Primary Button Style -->
-    <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource PrimaryOrangeBrush}"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="BorderBrush" Value="{StaticResource PrimaryOrangeBrush}"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
+    <Style x:Key="BaseButtonStyle" TargetType="Button">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="35"/>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Template" Value="{StaticResource ModernButtonTemplate}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+    
+    <!-- Primary Button Style -->
+    <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background" Value="{StaticResource PrimaryOrangeBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="{StaticResource PrimaryOrangeBrush}"/>        
     </Style>
 
     <!-- Secondary Button Style -->
-    <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+    <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{StaticResource LightGrayTextBrush}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource InputFieldBorderBrush}"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="FontSize" Value="12"/>
-        <Setter Property="Template" Value="{StaticResource ModernButtonTemplate}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource InputFieldBorderBrush}"/>        
     </Style>
 
     <!-- Icon Style -->
